@@ -1,0 +1,51 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: civilmaster
+      POSTGRES_PASSWORD: civilmaster_dev
+      POSTGRES_DB: civilmaster
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U civilmaster -d civilmaster"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://civilmaster:civilmaster_dev@db:5432/civilmaster
+      CORS_ORIGINS: http://localhost:3000
+      UPLOAD_DIR: /data/uploads
+      CORPUS_DIR: /data/corpus
+      LORA_ADAPTER_PATH: /adapters/civilmaster-lora
+      OCR_ENABLED: "true"
+    volumes:
+      - ./data:/data
+      - ./backend:/app
+      - ./training/adapters:/adapters:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Optional local LLM narration (pull model: docker compose run ollama ollama pull qwen2.5:7b)
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    profiles: ["llm"]
+
+volumes:
+  pgdata:
+  ollama_data:
