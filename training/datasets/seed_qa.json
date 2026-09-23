@@ -1,0 +1,44 @@
+{
+  "pairs": [
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A steel bar carries axial load P = 100000 N on area A = 500 mm2. Find axial stress.",
+      "output": "Use σ = P/A.\nσ = 100000/500 = 200 N/mm².\nFinal answer: 200 N/mm²."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam span L = 4000 mm with UDL w = 5 N/mm. Find max BM and max SF.",
+      "output": "V_max = wL/2 = 5*4000/2 = 10000 N.\nM_max = wL²/8 = 5*4000²/8 = 1.0e7 N·mm."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "RCC LSM Fe415: fck = 20 N/mm2, b = 230 mm, d = 450 mm. Find Mu,lim.",
+      "output": "Mu,lim = 0.138 fck b d² = 0.138*20*230*450² = 128547000 N·mm."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Soil sample: Ww = 20 N, Ws = 80 N. Find water content.",
+      "output": "w = Ww/Ws = 20/80 = 0.25 (25%)."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Void volume Vv = 0.4 m3, solids volume Vs = 0.6 m3. Find void ratio.",
+      "output": "e = Vv/Vs = 0.4/0.6 = 0.667."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Column effective length L = 3500 mm, radius of gyration r = 50 mm. Find slenderness ratio.",
+      "output": "λ = L/r = 3500/50 = 70."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rod L = 2000 mm, A = 400 mm2, E = 200000 N/mm2, P = 80000 N. Find elongation.",
+      "output": "δL = PL/(AE) = 80000*2000/(400*200000) = 2 mm."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 200 mm, d = 300 mm. Find moment of inertia about NA.",
+      "output": "I = bd³/12 = 200*300³/12 = 450000000 mm⁴."
+    }
+  ]
+}

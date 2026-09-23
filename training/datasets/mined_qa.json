@@ -1,0 +1,110 @@
+{
+  "pairs": [
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A steel bar carries axial load P = 100000 N on area A = 500 mm2. Find axial stress.",
+      "output": "Use σ = P/A.\nσ = 100000/500 = 200 N/mm².\nFinal answer: 200 N/mm²."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam span L = 4000 mm with UDL w = 5 N/mm. Find max BM and max SF.",
+      "output": "V_max = wL/2 = 5*4000/2 = 10000 N.\nM_max = wL²/8 = 5*4000²/8 = 1.0e7 N·mm."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "RCC LSM Fe415: fck = 20 N/mm2, b = 230 mm, d = 450 mm. Find Mu,lim.",
+      "output": "Mu,lim = 0.138 fck b d² = 0.138*20*230*450² = 128547000 N·mm."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Soil sample: Ww = 20 N, Ws = 80 N. Find water content.",
+      "output": "w = Ww/Ws = 20/80 = 0.25 (25%)."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Void volume Vv = 0.4 m3, solids volume Vs = 0.6 m3. Find void ratio.",
+      "output": "e = Vv/Vs = 0.4/0.6 = 0.667."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Column effective length L = 3500 mm, radius of gyration r = 50 mm. Find slenderness ratio.",
+      "output": "λ = L/r = 3500/50 = 70."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rod L = 2000 mm, A = 400 mm2, E = 200000 N/mm2, P = 80000 N. Find elongation.",
+      "output": "δL = PL/(AE) = 80000*2000/(400*200000) = 2 mm."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 200 mm, d = 300 mm. Find moment of inertia about NA.",
+      "output": "I = bd³/12 = 200*300³/12 = 450000000 mm⁴."
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "— Axial stress A steel bar carries an axial load P = 100000 N on a cross-sectional area A = 500 mm2. Find the axial stress.",
+      "output": "σ = P / A = 100000 / 500 = 200 N/mm2. Example 2 — Elongation A rod of length L = 2000 mm, area A = 400 mm2, and E = 200000 N/mm2 carries P = 80000 N. Elongation δL = P L / (A E) = 80000 * 2000 / (400 * 200000) = 2 mm.",
+      "source": "som_worked_examples.txt"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": ", Use a ratio L:B = 1:0.7 for the plot, and Use a scale of 1:150 for preparing the drawings. The center line of wall should be drawn to the scale.  For solving Problem 2, use a suitable scale for preparing the drawing.  The Solutions must provide the appropriate sectional details with complete dimensioning and sufficient number of views, wherever applicable.  Write your Name and Registration No. at the top right corner of each page of the answer sheet in your handwriting using a Blue ink pen before submission. Submit a soft copy (.pdf) of the",
+      "output": "sheet within the specified time. Upload the pdf form of the answer sheet in the prescribed file name format (Registration number_Course code, e.g., 20191011_CE13201). No extra time will be provided for the file submission. Use A4 size white paper for writing & drawing. Use a HB Pencil for preparing the drawings and use a blue ink pen for writing the answers.  If any UFM is found, the answer sheet will not be evaluated and the action will be taken as per the Ordinances. 1. A three storey Administrative Building intended to be constructed on a plot of size (830 + last two digit of your registration number) m2 with frontage towards North. Provide access to the roof through a properly designed staircase. Draw the Plan (ground floor) and Sectional View of the building. Calculate the Carpet Area, Built-up Area and FAR. [15] 2. Draw and detail the Single-stack partially ventilated plumbing system to be provided for a four story Office Building having floor to floor height of 3.2 m. The building is located at MNNIT Allahabad. [10]",
+      "source": "BPCL_CE3.pdf"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A 3m wide rectangular channel carries a discharge of 10 cumec at a depth of 2.0m. There is a step rise of 0.1m in the channel bottom. Assuming there is no losses in the transition; determine the flow depth downstream of the bottom step.",
+      "output": "Given Q=10cumec, y1=2m, B=3m, Δz=0.1m. sec / 67 .1 1 1 m A Q V   Specific energy at section 1 g V y E 2 2 1 1 1   m E 14 .2 81 .9 2 67 .1 2 2 1     Specific energy at section 2 is m z E E 04 .2 1.0 14 .2 1 2       At section 2 we have g V y E 2 2 2 2 2   and 2 2 A Q V    2 2 2 2 2 2 By g Q y E   On simplifying, we get  2 3 2 2 2 2 2 0 2 Q y y E g B    3 2 2 2 2.04 0.556 0 y y    Solving the equation by trial and error, we get m y 627 .0 2  , m y 88 .1 2  and the third root which is neglected here is m y 47 .0 3   .",
+      "source": "Lecture-1.pdf"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A lined channel of trapezoidal section carries a discharge of 8 cumecs, at a depth of 1.2m, with bottom width 2m and side slope of 1.5 Horizontal to 1Vertical. Consider uniform flow and calculate: 1. The longitudinal slope of the channel. 2. The average shear stress over the wetted perimeter 3. The value of equivalent Darcy’s Coefficient (f) . 4. The Froude number of flow. Assume, Manning’s n= 0.015.",
+      "output": "Given: Bottom width of the cross-section, b = 2.0m; Depth of the flow, y = 1.2m; Side slope = 1.5H;1V;, Discharge, Q= 8 Cumecs; Manning’s coefficient, n=0.015. Area of flow is given by, Area 2 2 2 2 1.2 1.50 1.2 4.56 A by my m        Wetted perimeter is given by,     m m y b P 32 .6 5.1 1 2.1 2 0.2 1 2 2 2         Therefore, m P A R 72 .0 32 .6 56 .4    Velocity of flow is given by, s m A Q v / 75 .1 56 .4 8    According to Manning’s formula, 2 / 1 3 / 2 1 S R n v      2 / 1 3 / 2 72 .0 015 .0 1 75 .1 S    52 . 936 1  S Average shear stress is given by, RS   0 2 0 53 .7 52 . 936 1 72 .0 9800 m N      We know that, f g C 8  But, 11 . 63 72 .0 015 .0 1 1 6 / 1 6 / 1      R n C Therefore, f g 8 11 . 63  f=0.019 Froude number is given by, gD v Fr  81 .0 2.1 5.1 2 2 56 .4 2 56 .4         my b T A D Therefore, 0.1 62 .0 81 .0 81 .9 75 .1     Fr Hence, the flow is subcritical.",
+      "source": "lecture2_compressed.pdf"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A rectangular channel has a bottom slope of 0.0064, Manning’s coefficient, N=0.015 and a width of 6m. It carries a discharge of 6 cumecs. Compute the normal depth and the velocity.",
+      "output": "Given: bed width, b=6.0m; bottom slope, S=0.0064; Manning’s coefficient, n=0.015; Discharge, Q=6 cumecs. We know the relation, √= AR Upon substitution, we get, AR = 1.125 y A=by P=b+2y R=A/P R2/3 AR2/3 0.5 3.0 7.0 0.428 0.568 1.706 0.384 2.304 3.151 0.340 0.487 1.124 Therefore, normal depth =0.384. Velocity, V=(Q/A)=6/2.304=2.60 m/s.",
+      "source": "Lecture2.pdf"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "- In a rectangular channel of width 10m and depth of flow 5m, the rate of flow of water is 50 cumecs. If the bed slope of the channel is 1 in 4000, find the slope of the free water surface. Assume Chezy’s constant C = 55.",
+      "output": "Width of the channel, b = 10 m; depth of flow, y = 5 m; discharge, Q = 50 cumecs; bed slope, S0 = 1 in 4000 = 0.00025; Chezy’s constant, C = 55; Using the Chezy’s formula for discharge, = Here, A = b*y = 10*5 = 50 m2; Perimeter, P = b+2y = 20m; hydraulic mean radius, R = A/P = = 2.5 ; velocity, V = Q/A = 1.0 m/s To find slope of the energy line: 50 = 50 ∗55 ∗ 2.50 ∗ Therefore, we get, = 0.000132 = − 1 − = 0.00025 −0.000132 1 − 1 9.81 ∗5 = 0.000120",
+      "source": "Lecture1.pdf"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Consider an open channel of rectangular cross-section, with bottom width of 6m, containing water flowing 2 m deep. The bottom slope of the channel is 0.0004 and it is made of concrete with a Manning roughness coefficient of 0.011. What would be the average flow velocity of the water and what would be the volumetric water flow rate? Hydraulic radius = R = A/P = (2).(6)/(6 + 2 + 2) = 1.2 m V = (1.49/0.011).(1.22/3).(0.00041/2) = 2.37 m/sec Q = VA = (2.37 m/sec)(12 m2) = 28.44 m3/sec EXAMPLE: Given a trapezoidal channel with bottom width of 3m, side slope 1.5H:1V, a longitudinal slope of 0.0016, and a roughness coefficient on N=0.013. Determine the normal discharge if the normal depth of flow is 2.6m.",
+      "output": "Cross sectional area is given by, A= (b+my)y = (3+1.5*2.6)*2.6= 18m2 Wetted perimeter is given by, P= b+2y√(1+m2) = 3+2*2.6*√(1+1.52)= 12m Hydraulics radius, R= A/P= 18/12= 1.5m Manning’s formula, V=(R⅔√S)/n Or, Discharge, Q=VA= (AR⅔√S)/n= 73m3",
+      "source": "Lecture1.pdf"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "- For a constant specific energy of 2.0 N-m/N, calculate the maximum discharge that may occur in a rectangular channel, 2.0m wide.",
+      "output": "Data given: Rectangular channel; specific energy= 2.0 N-m/N; width of the channel, b=2m For a given specific energy the discharge is maximum when the flow is in the critical state. Using the relation, = = ∗2.0 = 1.33 For a rectangular channel, = / Or, = ∗ = 1.33 ∗9.81 = 4.80 Therefore, = ∗ = 4.12 ∗2.0 = 9.60 .",
+      "source": "lecture5.pdf"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A jet of water of 10 cm diameter impinges normally on a fixed plate with velocity of 20 m/s. Find the force exerted on the plate.",
+      "output": "Given: Diameter of the jet = 0.10m; area of the jet, a= 7.854 x10-3 m2; velocity of the jet, v= 20m/s; Using the relation for force exerted by the jet on the plate, F = ρav = 1000 ∗7.854 x 10 ∗20 = 3141.6 N",
+      "source": "Lecture-2.pdf"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A jet of velocity of 10 m/s strikes a flat plate inclined at 300 with the axis of jet. If the cross sectional area of the jet is 10 cm2, find the force exerted by the jet on the plate. Also, calculate the components of the force in the direction normal to the jet. Find also the ratio in which the discharge gets divided after striking the plate.",
+      "output": "Data given: Velocity of jet, = 10 m/s; = 300; cross-sectional area, = 10x10-4 m2; ρwater= 1000 kg/m3; To find normal force exerted by the jet on the flat plate: Using the relations, we have, = sin = 1000 (10 10 ) 10 sin 30 = 50 To calculate the division of discharge: = sin = 50 sin 30 = 25 = cos = 50 cos 30 = 43.30 = 1 + cos 1 −cos = 13.928",
+      "source": "Lecture-2.pdf"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "f=@(x,y)(x.^2+y.^2) Once these functions are defined in the command window, they can be used just as other functions t=f(1,2)",
+      "output": "5 Loop: As the name implies, loops perform operations repetitively. There are two types of loops, depending on how the repetitions are terminated. A whiIe loop ends on the basis of a logical condition. A for loop ends after a specified number of repetitions .",
+      "source": "Bisection.pdf"
+    }
+  ]
+}
