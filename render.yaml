@@ -1,0 +1,24 @@
+# CivilMaster API on Render
+services:
+  - type: web
+    name: civilmaster-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: admin@example.com
+      - key: CORS_ORIGINS
+        value: https://civilmaster.vercel.app
+      - key: OCR_ENABLED
+        value: "false"
+      - key: DATABASE_URL
+        value: sqlite:////tmp/civilmaster.db
+      - key: UPLOAD_DIR
+        value: /tmp/uploads
+      - key: CORPUS_DIR
+        value: /tmp/corpus

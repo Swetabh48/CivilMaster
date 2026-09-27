@@ -21,9 +21,9 @@ orjson==3.10.12
 # Optional for semantic embeddings (hash fallback works without these):
 # sentence-transformers==3.3.1
 # torch==2.5.1
-# Optional OCR for scanned PDFs (no system Tesseract required):
-rapidocr-onnxruntime==1.2.3
-pytesseract==0.3.13
+# Optional OCR (install locally / when needed — keeps Docker image deployable):
+# rapidocr-onnxruntime==1.2.3
+# pytesseract==0.3.13
 # Optional local LoRA narration (CUDA GPU required):
 # peft==0.13.2
 # transformers==4.46.3

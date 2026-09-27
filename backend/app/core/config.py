@@ -37,7 +37,12 @@ class Settings(BaseSettings):
 
     @property
     def cors_origin_list(self) -> list[str]:
-        return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+        origins = [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+        # Always allow local next.js during development
+        for local in ("http://localhost:3000", "http://127.0.0.1:3000"):
+            if local not in origins:
+                origins.append(local)
+        return origins
 
     def resolved_upload_dir(self) -> Path:
         p = Path(self.upload_dir)
