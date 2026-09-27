@@ -15,9 +15,17 @@ ROOT = Path(__file__).resolve().parents[1]
 
 image = (
     modal.Image.debian_slim(python_version="3.12")
-    .apt_install("libgl1", "libglib2.0-0", "libcairo2", "libpango-1.0-0", "libgdk-pixbuf-2.0-0")
+    .apt_install(
+        "libgl1",
+        "libglib2.0-0",
+        "libcairo2",
+        "libcairo2-dev",
+        "libpango-1.0-0",
+        "libgdk-pixbuf-2.0-0",
+        "pkg-config",
+        "shared-mime-info",
+    )
     .pip_install_from_requirements(str(ROOT / "backend" / "requirements.txt"))
-    .pip_install("cairosvg==2.7.1")
     .env({"PYTHONPATH": "/root"})
     .add_local_dir(str(ROOT / "backend" / "app"), remote_path="/root/app")
 )
