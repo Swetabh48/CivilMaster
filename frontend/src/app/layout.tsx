@@ -5,6 +5,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "CivilMaster",
   description: "Formula-verified Civil Engineering assignment solver for B.Tech",
+  icons: {
+    icon: "/brand.svg",
+    apple: "/brand.svg",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

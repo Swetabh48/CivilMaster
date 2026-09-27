@@ -1,5 +1,5 @@
 """
-CivilMaster QLoRA training on Modal cloud GPU (T4).
+CivilMaster QLoRA training on Modal cloud GPU (T4) — strong recipe.
 
 Run:
   modal run training/modal_train.py
@@ -38,14 +38,13 @@ vol = modal.Volume.from_name("civilmaster-lora-vol", create_if_missing=True)
 
 @app.function(
     gpu="T4",
-    timeout=60 * 90,
+    timeout=60 * 150,
     memory=32768,
     volumes={"/vol": vol},
 )
 def train_qlora(dataset_text: str) -> dict:
     import json
     import os
-    from pathlib import Path as P
 
     import torch
     from datasets import Dataset
@@ -89,8 +88,8 @@ def train_qlora(dataset_text: str) -> dict:
     model = get_peft_model(
         model,
         LoraConfig(
-            r=16,
-            lora_alpha=32,
+            r=32,
+            lora_alpha=64,
             lora_dropout=0.05,
             bias="none",
             task_type="CAUSAL_LM",
@@ -120,19 +119,23 @@ def train_qlora(dataset_text: str) -> dict:
         tokenizer=tokenizer,
         train_dataset=ds,
         formatting_func=formatting,
-        max_seq_length=1024,
+        max_seq_length=2048,
         args=TrainingArguments(
             output_dir="/tmp/cm_out",
-            num_train_epochs=2,
+            num_train_epochs=3,
             per_device_train_batch_size=1,
-            gradient_accumulation_steps=8,
-            learning_rate=2e-4,
-            logging_steps=5,
+            gradient_accumulation_steps=16,
+            learning_rate=1.5e-4,
+            logging_steps=10,
             save_strategy="epoch",
             fp16=True,
             optim="paged_adamw_8bit",
             report_to=[],
-            warmup_steps=5,
+            warmup_ratio=0.06,
+            weight_decay=0.01,
+            lr_scheduler_type="cosine",
+            max_grad_norm=1.0,
+            seed=3407,
         ),
     )
     train_result = trainer.train()
@@ -140,7 +143,6 @@ def train_qlora(dataset_text: str) -> dict:
     tokenizer.save_pretrained(out_dir)
     vol.commit()
 
-    # Smoke test
     model.eval()
     prompt = tokenizer.apply_chat_template(
         [
@@ -150,7 +152,7 @@ def train_qlora(dataset_text: str) -> dict:
             },
             {
                 "role": "user",
-                "content": "A steel bar carries axial load P = 100000 N on area A = 500 mm2. Find axial stress.",
+                "content": "A steel bar carries axial load P = 100000 N on area A = 500 mm2. Find axial stress. Show the formula.",
             },
         ],
         tokenize=False,
@@ -158,16 +160,17 @@ def train_qlora(dataset_text: str) -> dict:
     )
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     with torch.no_grad():
-        ids = model.generate(**inputs, max_new_tokens=160, do_sample=False)
+        ids = model.generate(**inputs, max_new_tokens=180, do_sample=False)
     sample = tokenizer.decode(ids[0], skip_special_tokens=True)
 
     return {
         "loss": float(train_result.training_loss),
         "steps": int(train_result.global_step),
         "adapter_dir": out_dir,
-        "sample": sample[-500:],
+        "sample": sample[-600:],
         "gpu": torch.cuda.get_device_name(0),
         "n_pairs": len(rows),
+        "recipe": "r32_alpha64_ep3_cosine_seq2048",
     }
 
 
@@ -187,7 +190,7 @@ def fetch_adapter() -> dict[str, bytes]:
 @app.local_entrypoint()
 def main() -> None:
     if not DATASET.exists():
-        raise SystemExit(f"Missing dataset: {DATASET}. Run build_training_pack + curate first.")
+        raise SystemExit(f"Missing dataset: {DATASET}. Run build_gold + curate first.")
     text = DATASET.read_text(encoding="utf-8")
     print(f"Submitting QLoRA job on Modal T4 with {DATASET.name} ...")
     result = train_qlora.remote(text)

@@ -1,0 +1,256 @@
+{
+  "pairs": [
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "In the beam UDL example, why is max moment wL^2/8 and not wL^2/4?",
+      "output": "For a simply supported beam with full-span UDL, shear is zero at midspan and the moment diagram is parabolic. Integrating load gives M_max = wL^2/8 at midspan. wL^2/4 would overstate the midspan moment for this case.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: In the beam UDL example, why is max moment wL^2/8 and not wL^2/4?",
+      "output": "For a simply supported beam with full-span UDL, shear is zero at midspan and the moment diagram is parabolic. Integrating load gives M_max = wL^2/8 at midspan. wL^2/4 would overstate the midspan moment for this case.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "Why do we divide P by A for axial stress? Should self-weight be included?",
+      "output": "Average axial stress is force over resisting area: σ = P/A. Self-weight is only added if the problem states to include it or gives density/length for gravity load; otherwise use the given axial load only.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: Why do we divide P by A for axial stress? Should self-weight be included?",
+      "output": "Average axial stress is force over resisting area: σ = P/A. Self-weight is only added if the problem states to include it or gives density/length for gravity load; otherwise use the given axial load only.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "Units: if P is in N and A in mm2, what is σ?",
+      "output": "σ = P/A then has units N/mm2, which is the same as MPa. Keep units consistent before substituting.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: Units: if P is in N and A in mm2, what is σ?",
+      "output": "σ = P/A then has units N/mm2, which is the same as MPa. Keep units consistent before substituting.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "For elongation δ = PL/AE, what if temperature also changes?",
+      "output": "The PL/AE term is mechanical elongation only. Temperature change adds α ΔT L. Only include it when ΔT (and α) are given.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: For elongation δ = PL/AE, what if temperature also changes?",
+      "output": "The PL/AE term is mechanical elongation only. Temperature change adds α ΔT L. Only include it when ΔT (and α) are given.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "Can I use the same M_max = wL^2/8 for a cantilever with UDL?",
+      "output": "No. Cantilever with full UDL has M_max = wL^2/2 at the fixed end. wL^2/8 is specifically for simply supported + full UDL.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: Can I use the same M_max = wL^2/8 for a cantilever with UDL?",
+      "output": "No. Cantilever with full UDL has M_max = wL^2/2 at the fixed end. wL^2/8 is specifically for simply supported + full UDL.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "What is the difference between gross area and net area in tension members?",
+      "output": "Gross area is the full cross-section. Net area deducts bolt holes and other openings along the critical rupture path. Design checks often use net area for rupture and gross area for yielding.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: What is the difference between gross area and net area in tension members?",
+      "output": "Gross area is the full cross-section. Net area deducts bolt holes and other openings along the critical rupture path. Design checks often use net area for rupture and gross area for yielding.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "Why is modular ratio m = 280/(3σcbc) in WSM concrete?",
+      "output": "IS 456 working-stress method uses that empirical expression for the modular ratio relating steel and concrete moduli for transformed-section analysis. Do not mix it into limit-state Mu formulas.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: Why is modular ratio m = 280/(3σcbc) in WSM concrete?",
+      "output": "IS 456 working-stress method uses that empirical expression for the modular ratio relating steel and concrete moduli for transformed-section analysis. Do not mix it into limit-state Mu formulas.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "In soil mechanics, void ratio e = Vv/Vs — can it be greater than 1?",
+      "output": "Yes. If voids volume exceeds solids volume, e > 1. That is common in soft/loose soils. Porosity n = e/(1+e) stays below 1.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: In soil mechanics, void ratio e = Vv/Vs — can it be greater than 1?",
+      "output": "Yes. If voids volume exceeds solids volume, e > 1. That is common in soft/loose soils. Porosity n = e/(1+e) stays below 1.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "For a rectangular section, is I = bd^3/12 about any axis?",
+      "output": "No. bd^3/12 is about the centroidal axis parallel to the breadth b (neutral axis for bending about that axis). About the other centroidal axis it is db^3/12.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: For a rectangular section, is I = bd^3/12 about any axis?",
+      "output": "No. bd^3/12 is about the centroidal axis parallel to the breadth b (neutral axis for bending about that axis). About the other centroidal axis it is db^3/12.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "If the solution shows V_max = wL/2, where does that act?",
+      "output": "For simply supported beam with full UDL, support reactions are each wL/2, so maximum shear is at the supports just inside the span. Shear decreases linearly to zero at midspan.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: If the solution shows V_max = wL/2, where does that act?",
+      "output": "For simply supported beam with full UDL, support reactions are each wL/2, so maximum shear is at the supports just inside the span. Shear decreases linearly to zero at midspan.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "Why is N/mm2 the same as MPa?",
+      "output": "By definition 1 MPa = 1 N/mm2. So axial stress reported in N/mm2 can be labeled MPa without numerical conversion.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: Why is N/mm2 the same as MPa?",
+      "output": "By definition 1 MPa = 1 N/mm2. So axial stress reported in N/mm2 can be labeled MPa without numerical conversion.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "Should I convert span from m to mm before using beam formulas?",
+      "output": "Yes if your load is in N/mm or N and you want M in N·mm. Convert everything to one consistent set before substituting; do not mix m and mm in the same formula.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: Should I convert span from m to mm before using beam formulas?",
+      "output": "Yes if your load is in N/mm or N and you want M in N·mm. Convert everything to one consistent set before substituting; do not mix m and mm in the same formula.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "What does γm1 = 1.25 mean in the steel tension formula?",
+      "output": "γm1 is the partial safety factor for material strength in IS 800 limit-state design (rupture). Dividing by 1.25 reduces the design strength relative to the characteristic ultimate strength.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: What does γm1 = 1.25 mean in the steel tension formula?",
+      "output": "γm1 is the partial safety factor for material strength in IS 800 limit-state design (rupture). Dividing by 1.25 reduces the design strength relative to the characteristic ultimate strength.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "Is average shear stress V/A exact for beams?",
+      "output": "V/A is the average shear stress. Elastic beam theory has a parabolic distribution for rectangles (max = 1.5 V/A). Use the form required by the question; many intro problems accept average τ = V/A.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: Is average shear stress V/A exact for beams?",
+      "output": "V/A is the average shear stress. Elastic beam theory has a parabolic distribution for rectangles (max = 1.5 V/A). Use the form required by the question; many intro problems accept average τ = V/A.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "Why do we use I = πd^4/64 for bending of a circular section but J = πd^4/32 for torsion?",
+      "output": "I is the second moment of area about a diameter (bending). J is the polar moment (torsion) and for a circle J = 2I = πd^4/32.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: Why do we use I = πd^4/64 for bending of a circular section but J = πd^4/32 for torsion?",
+      "output": "I is the second moment of area about a diameter (bending). J is the polar moment (torsion) and for a circle J = 2I = πd^4/32.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "Can CivilMaster invent a number that is not in the problem?",
+      "output": "No. Only use given data (and standard IS factors the problem explicitly asks for). If a value is missing, say what is missing.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: Can CivilMaster invent a number that is not in the problem?",
+      "output": "No. Only use given data (and standard IS factors the problem explicitly asks for). If a value is missing, say what is missing.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "Difference between WSM and LSM for RCC?",
+      "output": "Working stress method uses permissible stresses and modular ratio. Limit state method uses partial factors and ultimate section capacities (Mu, etc.). Do not mix m-based WSM formulas into LSM Mu checks.",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: Difference between WSM and LSM for RCC?",
+      "output": "Working stress method uses permissible stresses and modular ratio. Limit state method uses partial factors and ultimate section capacities (Mu, etc.). Do not mix m-based WSM formulas into LSM Mu checks.",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Answer the student's doubt using only correct civil engineering theory. Be brief.",
+      "input": "For point load at midspan on SS beam, is M_max = WL/4 or WL/8?",
+      "output": "Central concentrated load: M_max = WL/4 at midspan. WL/8 is for full UDL (with wL playing the role of total load W=wL, M=wL^2/8=WL/8).",
+      "source": "doubt_drill",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Clarify this doubt about the worked solution. Do not invent new numbers.",
+      "input": "Doubt: For point load at midspan on SS beam, is M_max = WL/4 or WL/8?",
+      "output": "Central concentrated load: M_max = WL/4 at midspan. WL/8 is for full UDL (with wL playing the role of total load W=wL, M=wL^2/8=WL/8).",
+      "source": "doubt_paraphrase",
+      "quality": "gold"
+    }
+  ]
+}

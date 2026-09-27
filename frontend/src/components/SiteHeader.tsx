@@ -9,7 +9,8 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <Link href={user ? "/dashboard" : "/"} className="brand">
-        <span className="brand-mark" aria-hidden />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/brand.svg" alt="" width={32} height={32} className="brand-logo" />
         <span>
           <strong>CivilMaster</strong>
           <span>B.Tech Civil · formula-verified</span>

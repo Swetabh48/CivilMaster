@@ -4,7 +4,13 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
 import { useAuth } from "@/lib/auth";
-import { apiFeedback, apiGetAssignment, type Assignment } from "@/lib/api";
+import {
+  apiChatAboutSolution,
+  apiFeedback,
+  apiGetAssignment,
+  downloadAssignmentExport,
+  type Assignment,
+} from "@/lib/api";
 
 type Solution = {
   explanation?: string;
@@ -16,6 +22,33 @@ type Solution = {
   subject?: string;
 };
 
+type ChatMsg = { role: "user" | "assistant"; text: string };
+
+function formatSolutionHtml(text: string): string {
+  const escaped = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  return escaped
+    .split("\n")
+    .map((line) => {
+      const t = line.trim();
+      if (!t) return "<br/>";
+      if (t.startsWith("## ")) return `<h3 class="sol-h">${t.slice(3)}</h3>`;
+      if (t.startsWith("**") && t.endsWith("**")) {
+        return `<p class="sol-strong">${t.slice(2, -2)}</p>`;
+      }
+      let out = t
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/`([^`]+)`/g, "<code>$1</code>");
+      if (out.startsWith("- ") || out.startsWith("* ")) {
+        return `<p class="sol-li">• ${out.slice(2)}</p>`;
+      }
+      return `<p class="sol-p">${out}</p>`;
+    })
+    .join("");
+}
+
 export default function SolveDetailPage() {
   const params = useParams<{ id: string }>();
   const { user, token, loading } = useAuth();
@@ -25,6 +58,16 @@ export default function SolveDetailPage() {
   const [facultyKey, setFacultyKey] = useState("");
   const [notes, setNotes] = useState("");
   const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null);
+  const [dlBusy, setDlBusy] = useState<string | null>(null);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatInput, setChatInput] = useState("");
+  const [chatBusy, setChatBusy] = useState(false);
+  const [chatMsgs, setChatMsgs] = useState<ChatMsg[]>([
+    {
+      role: "assistant",
+      text: "Ask anything about this solution — steps, units, or why a formula was used.",
+    },
+  ]);
 
   useEffect(() => {
     if (!loading && !user) router.replace("/login");
@@ -38,8 +81,8 @@ export default function SolveDetailPage() {
   }, [token, params.id]);
 
   const solution = (item?.solution || {}) as Solution;
-
   const answers = useMemo(() => solution.final_answers || [], [solution.final_answers]);
+  const relatedNotes = useMemo(() => (solution.rag_context || []).slice(0, 3), [solution.rag_context]);
 
   async function sendFeedback(is_correct: boolean, e?: FormEvent) {
     e?.preventDefault();
@@ -52,9 +95,45 @@ export default function SolveDetailPage() {
         faculty_key: facultyKey || undefined,
         notes: notes || undefined,
       });
-      setFeedbackMsg("Thanks — feedback queued for admin review.");
+      setFeedbackMsg("Thanks — your feedback was saved.");
     } catch (err) {
-      setFeedbackMsg(err instanceof Error ? err.message : "Feedback failed");
+      setFeedbackMsg(err instanceof Error ? err.message : "Could not save feedback");
+    }
+  }
+
+  async function download(kind: "pdf" | "docx" | "dxf") {
+    if (!token || !item) return;
+    setDlBusy(kind);
+    setError(null);
+    try {
+      await downloadAssignmentExport(token, item.id, kind);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Download failed");
+    } finally {
+      setDlBusy(null);
+    }
+  }
+
+  async function sendChat(e: FormEvent) {
+    e.preventDefault();
+    if (!token || !item || !chatInput.trim()) return;
+    const q = chatInput.trim();
+    setChatInput("");
+    setChatMsgs((m) => [...m, { role: "user", text: q }]);
+    setChatBusy(true);
+    try {
+      const { reply } = await apiChatAboutSolution(token, item.id, q);
+      setChatMsgs((m) => [...m, { role: "assistant", text: reply }]);
+    } catch (err) {
+      setChatMsgs((m) => [
+        ...m,
+        {
+          role: "assistant",
+          text: err instanceof Error ? err.message : "Could not answer right now.",
+        },
+      ]);
+    } finally {
+      setChatBusy(false);
     }
   }
 
@@ -66,8 +145,39 @@ export default function SolveDetailPage() {
       {item ? (
         <>
           <section className="hero" style={{ paddingTop: "0.25rem" }}>
-            <p className="muted">{item.subject || "general"} · {item.status}</p>
+            <p className="muted">
+              {item.subject || "Civil"} · {item.status === "done" ? "ready" : item.status}
+            </p>
             <h1 style={{ fontSize: "2rem", maxWidth: "none" }}>{item.title}</h1>
+            <div className="stack" style={{ marginTop: "1rem" }}>
+              <button
+                className="btn"
+                type="button"
+                disabled={!!dlBusy}
+                onClick={() => download("pdf")}
+              >
+                {dlBusy === "pdf" ? "Preparing…" : "Download PDF"}
+              </button>
+              <button
+                className="btn secondary"
+                type="button"
+                disabled={!!dlBusy}
+                onClick={() => download("docx")}
+              >
+                {dlBusy === "docx" ? "Preparing…" : "Download Word"}
+              </button>
+              <button
+                className="btn secondary"
+                type="button"
+                disabled={!!dlBusy}
+                onClick={() => download("dxf")}
+              >
+                {dlBusy === "dxf" ? "Preparing…" : "Download AutoCAD (DXF)"}
+              </button>
+              <button className="btn secondary" type="button" onClick={() => setChatOpen(true)}>
+                Ask about this solution
+              </button>
+            </div>
           </section>
 
           <div className="grid-2 fade-in">
@@ -75,19 +185,19 @@ export default function SolveDetailPage() {
               <h2>Question</h2>
               <pre className="steps">{item.raw_text}</pre>
               <h2 style={{ marginTop: "1.5rem" }}>Solution</h2>
-              <div className="steps">{solution.explanation || "No explanation yet."}</div>
+              <div
+                className="solution-body"
+                dangerouslySetInnerHTML={{
+                  __html: formatSolutionHtml(solution.explanation || "No written steps yet."),
+                }}
+              />
               {answers.length ? (
                 <>
                   <h3 style={{ marginTop: "1.25rem" }}>Final answers</h3>
                   <ul className="list">
                     {answers.map((a) => (
-                      <li key={a.formula_id + a.label}>
-                        <span>
-                          {a.label}
-                          <div className="muted mono" style={{ fontSize: "0.8rem" }}>
-                            {a.formula_id}
-                          </div>
-                        </span>
+                      <li key={a.label + String(a.value)}>
+                        <span>{a.label}</span>
                         <strong className="mono">
                           {a.value} {a.unit}
                         </strong>
@@ -107,17 +217,18 @@ export default function SolveDetailPage() {
                     dangerouslySetInnerHTML={{ __html: solution.diagram_svg }}
                   />
                 ) : (
-                  <p className="muted">No diagram for this problem type.</p>
+                  <p className="muted">No sketch for this problem type.</p>
                 )}
+                <p className="muted" style={{ marginTop: "0.75rem", fontSize: "0.85rem" }}>
+                  For CAD software, use <strong>Download AutoCAD (DXF)</strong> above.
+                </p>
               </div>
 
-              <div className="panel">
-                <h2>Corpus matches</h2>
-                {(solution.rag_context || []).length === 0 ? (
-                  <p className="muted">No retrieved chunks. Admin can ingest corpus.</p>
-                ) : (
+              {relatedNotes.length ? (
+                <div className="panel">
+                  <h2>Related notes</h2>
                   <ul className="list">
-                    {(solution.rag_context || []).map((h) => (
+                    {relatedNotes.map((h) => (
                       <li key={h.source_name + h.score}>
                         <div>
                           <strong>{h.source_name}</strong>
@@ -125,21 +236,20 @@ export default function SolveDetailPage() {
                             {h.content.slice(0, 160)}…
                           </div>
                         </div>
-                        <span className="badge">{h.score}</span>
                       </li>
                     ))}
                   </ul>
-                )}
-              </div>
+                </div>
+              ) : null}
 
               <form className="panel" onSubmit={(e) => sendFeedback(false, e)}>
-                <h2>Improve CivilMaster</h2>
+                <h2>Was this helpful?</h2>
                 <p className="muted">
-                  Mark correctness. Optional faculty key goes to the admin review queue for
-                  periodic LoRA refresh — not live weight updates.
+                  Tell us if the answer looks right. If something is wrong, you can paste the
+                  correct solution from class.
                 </p>
                 <div className="field">
-                  <label htmlFor="faculty">Faculty / correct solution (optional)</label>
+                  <label htmlFor="faculty">Correct solution from class (optional)</label>
                   <textarea
                     id="faculty"
                     value={facultyKey}
@@ -152,16 +262,49 @@ export default function SolveDetailPage() {
                 </div>
                 <div className="stack">
                   <button className="btn" type="button" onClick={() => sendFeedback(true)}>
-                    Mark correct
+                    Looks correct
                   </button>
                   <button className="btn secondary" type="submit">
-                    Mark wrong + submit key
+                    Needs correction
                   </button>
                 </div>
                 {feedbackMsg ? <p className="ok">{feedbackMsg}</p> : null}
               </form>
             </div>
           </div>
+
+          {chatOpen ? (
+            <div className="chat-dock" role="dialog" aria-label="Solution chat">
+              <div className="chat-head">
+                <strong>Ask about this solution</strong>
+                <button type="button" className="linkish" onClick={() => setChatOpen(false)}>
+                  Close
+                </button>
+              </div>
+              <div className="chat-body">
+                {chatMsgs.map((m, i) => (
+                  <div key={i} className={`chat-bubble ${m.role}`}>
+                    {m.text}
+                  </div>
+                ))}
+              </div>
+              <form className="chat-form" onSubmit={sendChat}>
+                <input
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  placeholder="e.g. Why is max moment wL²/8?"
+                  disabled={chatBusy}
+                />
+                <button className="btn" type="submit" disabled={chatBusy || !chatInput.trim()}>
+                  {chatBusy ? "…" : "Send"}
+                </button>
+              </form>
+            </div>
+          ) : (
+            <button type="button" className="chat-fab" onClick={() => setChatOpen(true)}>
+              Chat
+            </button>
+          )}
         </>
       ) : null}
     </main>

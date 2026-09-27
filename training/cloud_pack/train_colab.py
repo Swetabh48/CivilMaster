@@ -1,5 +1,5 @@
 ﻿#!/usr/bin/env python3
-"""CivilMaster QLoRA on Colab T4 — open-source Qwen2.5-3B."""
+"""CivilMaster QLoRA on Colab T4 — stronger recipe for better adapters."""
 import json, os, subprocess, sys
 from pathlib import Path
 
@@ -29,39 +29,72 @@ model, tokenizer = FastLanguageModel.from_pretrained(
     load_in_4bit=True,
 )
 model = FastLanguageModel.get_peft_model(
-    model, r=16,
-    target_modules=["q_proj","k_proj","v_proj","o_proj","gate_proj","up_proj","down_proj"],
-    lora_alpha=32, lora_dropout=0, bias="none",
-    use_gradient_checkpointing="unsloth", random_state=3407,
+    model,
+    r=32,
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+    lora_alpha=64,
+    lora_dropout=0.05,
+    bias="none",
+    use_gradient_checkpointing="unsloth",
+    random_state=3407,
 )
 
 def to_text(ex):
     return tokenizer.apply_chat_template(ex["messages"], tokenize=False, add_generation_prompt=False)
 
 ds = Dataset.from_list([{"text": to_text(r)} for r in rows])
+# Small holdout slice from the pack itself for sanity logging
+n = len(ds)
+split = max(1, int(0.08 * n))
+train_ds = ds.select(range(split, n)) if n > 20 else ds
+print("train_rows:", len(train_ds))
+
 trainer = SFTTrainer(
-    model=model, tokenizer=tokenizer, train_dataset=ds,
-    dataset_text_field="text", max_seq_length=max_seq_length, packing=False,
+    model=model,
+    tokenizer=tokenizer,
+    train_dataset=train_ds,
+    dataset_text_field="text",
+    max_seq_length=max_seq_length,
+    packing=False,
     args=TrainingArguments(
-        per_device_train_batch_size=2, gradient_accumulation_steps=4,
-        warmup_steps=5, num_train_epochs=2, learning_rate=2e-4,
-        fp16=not torch.cuda.is_bf16_supported(), bf16=torch.cuda.is_bf16_supported(),
-        logging_steps=5, optim="adamw_8bit", weight_decay=0.01,
-        lr_scheduler_type="linear", seed=3407, output_dir="civilmaster_lora_out",
-        report_to="none", save_strategy="epoch",
+        per_device_train_batch_size=2,
+        gradient_accumulation_steps=8,
+        warmup_ratio=0.06,
+        num_train_epochs=3,
+        learning_rate=1.5e-4,
+        fp16=not torch.cuda.is_bf16_supported(),
+        bf16=torch.cuda.is_bf16_supported(),
+        logging_steps=10,
+        optim="adamw_8bit",
+        weight_decay=0.01,
+        lr_scheduler_type="cosine",
+        seed=3407,
+        output_dir="civilmaster_lora_out",
+        report_to="none",
+        save_strategy="epoch",
+        max_grad_norm=1.0,
     ),
 )
 trainer.train()
-out = Path("civilmaster-lora"); out.mkdir(exist_ok=True)
-model.save_pretrained(str(out)); tokenizer.save_pretrained(str(out))
+out = Path("civilmaster-lora")
+out.mkdir(exist_ok=True)
+model.save_pretrained(str(out))
+tokenizer.save_pretrained(str(out))
 print("SAVED", out.resolve())
 FastLanguageModel.for_inference(model)
-prompt = tokenizer.apply_chat_template([
-    {"role":"system","content":"You are CivilMaster, a B.Tech Civil Engineering tutor."},
-    {"role":"user","content":"A steel bar carries axial load P = 100000 N on area A = 500 mm2. Find axial stress."},
-], tokenize=False, add_generation_prompt=True)
+prompt = tokenizer.apply_chat_template(
+    [
+        {"role": "system", "content": "You are CivilMaster, a B.Tech Civil Engineering tutor."},
+        {
+            "role": "user",
+            "content": "A steel bar carries axial load P = 100000 N on area A = 500 mm2. Find axial stress. Show the formula.",
+        },
+    ],
+    tokenize=False,
+    add_generation_prompt=True,
+)
 inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-ids = model.generate(**inputs, max_new_tokens=200, temperature=0.1, do_sample=True)
+ids = model.generate(**inputs, max_new_tokens=220, temperature=0.05, do_sample=True)
 print(tokenizer.decode(ids[0], skip_special_tokens=True))
 subprocess.check_call(["zip", "-r", "civilmaster-lora.zip", "civilmaster-lora"])
 print("ZIP_READY civilmaster-lora.zip")

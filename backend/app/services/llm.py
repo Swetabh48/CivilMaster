@@ -171,23 +171,101 @@ async def generate_explanation(
     return await _generate_with_ollama(prompt)
 
 
+async def answer_solution_question(
+    question: str,
+    *,
+    problem_text: str,
+    solution: dict,
+) -> str:
+    """Short doubt-clearing reply grounded in the saved solution (no new numbers)."""
+    answers = solution.get("final_answers") or []
+    steps = solution.get("steps") or []
+    explanation = solution.get("explanation") or narrative_from_registry(problem_text, solution)
+    formulas = []
+    for step in steps:
+        if step.get("expression"):
+            formulas.append(f"- {step.get('name')}: `{step.get('expression')}`")
+    ground_block = "\n".join(formulas) if formulas else "(see write-up)"
+    prompt = f"""You are CivilMaster, a helpful B.Tech Civil tutor.
+A student has a doubt about the worked solution below.
+Rules:
+1) Answer in 3–8 short sentences.
+2) Use ONLY formulas and numbers from the verified solution below.
+3) Do NOT invent new numeric results. If asked for a new calculation, say the verified answer and explain the formula.
+4) If the doubt is conceptual (why this formula), explain briefly using civil theory consistent with the solution.
+5) If something is not in the solution, say what is missing — do not guess.
+
+Student question:
+{question[:1500]}
+
+Problem:
+{problem_text[:2500]}
+
+Verified formulas used:
+{ground_block}
+
+Solution write-up:
+{explanation[:3500]}
+
+Verified steps:
+{steps}
+
+Final answers:
+{answers}
+"""
+    lora_text = _generate_with_lora(prompt)
+    if lora_text:
+        return lora_text
+    ollama = await _generate_with_ollama(prompt)
+    if ollama:
+        return ollama
+    # Deterministic fallback from registry facts
+    q_lower = question.lower()
+    lines = [
+        "Here's what this solution already shows:",
+        "",
+    ]
+    if answers:
+        lines.append("Final results:")
+        for a in answers:
+            lines.append(f"- {a.get('label')}: {a.get('value')} {a.get('unit')}")
+        lines.append("")
+    if steps:
+        lines.append("Key steps:")
+        for i, step in enumerate(steps[:6], start=1):
+            lines.append(
+                f"{i}. {step.get('name')}: {step.get('expression')} → "
+                f"{step.get('value')} {step.get('unit')}"
+            )
+        lines.append("")
+    if any(w in q_lower for w in ("why", "how come", "difference", "instead")):
+        lines.append(
+            "The numbers above come from the formula engine using the data in your question. "
+            "If you're unsure why a formula was chosen, check the step name — it matches the "
+            "problem keywords (beam, axial, RCC, soil, etc.)."
+        )
+    else:
+        lines.append(
+            "If your doubt is about something not listed above, paste the exact line "
+            "you're stuck on and ask again."
+        )
+    return "\n".join(lines)
+
+
 def narrative_from_registry(problem_text: str, solution: dict) -> str:
-    lines = ["## Solution (verified formula engine)", ""]
-    lines.append("**Given / extracted variables:**")
+    lines = ["## Worked solution", ""]
+    lines.append("**Given:**")
     for k, v in (solution.get("variables_extracted") or {}).items():
         lines.append(f"- {k} = {v}")
     lines.append("")
     for i, step in enumerate(solution.get("steps") or [], start=1):
         lines.append(f"**Step {i}: {step['name']}**")
-        lines.append(f"- Formula: `{step['expression']}` (`{step['formula_id']}`)")
+        lines.append(f"- Formula: `{step['expression']}`")
         inputs = ", ".join(f"{k}={v}" for k, v in (step.get("inputs") or {}).items())
         lines.append(f"- Substitution: {inputs}")
         lines.append(f"- Result: **{step['value']} {step['unit']}**")
         if step.get("notes"):
             lines.append(f"- Note: {step['notes']}")
-        ver = step.get("verification") or {}
-        if ver:
-            lines.append(f"- Verification: {'passed' if ver.get('ok') else 'failed'}")
         lines.append("")
     if solution.get("final_answers"):
         lines.append("**Final answers:**")
@@ -195,9 +273,9 @@ def narrative_from_registry(problem_text: str, solution: dict) -> str:
             lines.append(f"- {ans['label']}: {ans['value']} {ans['unit']}")
     if not solution.get("steps"):
         lines.append(
-            "No registered formula matched with sufficient inputs. "
-            "Add clearer values (e.g. `P = 50 kN`, `A = 500 mm2`) or expand the corpus."
+            "Could not match a stored formula with the values found in the question. "
+            "Try pasting clearer numbers (for example `P = 50 kN`, `A = 500 mm2`)."
         )
         lines.append("")
-        lines.append(f"Problem excerpt: {problem_text[:500]}")
+        lines.append(f"Question excerpt: {problem_text[:500]}")
     return "\n".join(lines)

@@ -1,0 +1,585 @@
+{
+  "pairs": [
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A member carries axial load P = 1.1142 N on area A = 4.6667 mm2. Find axial stress.",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 1.114, A = 4.667.\nResult: 0.2388 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Calculate σ for P = 13.5985 N acting on A = 145.6138 mm2.",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 13.6, A = 145.6.\nResult: 0.09339 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Calculate σ for P = 2.5234 N acting on A = 432.9364 mm2.",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 2.523, A = 432.9.\nResult: 0.00582857 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Calculate σ for P = 13.9194 N acting on A = 1.699 mm2.",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 13.92, A = 1.699.\nResult: 8.193 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find the axial stress if P = 2213.4583 N and A = 116.9588 mm².",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 2213.46, A = 117.\nResult: 18.93 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A member carries axial load P = 87.557 N on area A = 1870.3684 mm2. Find axial stress.",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 87.56, A = 1870.37.\nResult: 0.04681 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Calculate σ for P = 39.1893 N acting on A = 0.3789 mm2.",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 39.19, A = 0.3789.\nResult: 103.4 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find the axial stress if P = 0.4549 N and A = 2.259 mm².",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 0.4549, A = 2.259.\nResult: 0.2014 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A member carries axial load P = 143.8139 N on area A = 1.0966 mm2. Find axial stress.",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 143.8, A = 1.097.\nResult: 131.1 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find the axial stress if P = 0.3771 N and A = 1.6816 mm².",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 0.3771, A = 1.682.\nResult: 0.2243 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find the axial stress if P = 2.2368 N and A = 412.612 mm².",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 2.237, A = 412.6.\nResult: 0.00542107 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find the axial stress if P = 1.2121 N and A = 0.7846 mm².",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 1.212, A = 0.7846.\nResult: 1.545 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A member carries axial load P = 0.7018 N on area A = 52.1955 mm2. Find axial stress.",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 0.7018, A = 52.2.\nResult: 0.01345 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Calculate σ for P = 0.9041 N acting on A = 1313.5515 mm2.",
+      "output": "Formula: σ = P / A (`som.axial_stress`).\nSubstitution: P = 0.9041, A = 1313.55.\nResult: 0.000688287 N/mm².",
+      "source": "nl_registry:som.axial_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A rod L = 36.4136 mm, A = 429.587 mm2, E = 4.4292 N/mm2 carries P = 27.4692 N. Find elongation.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 27.47, L = 36.41, A = 429.6, E = 4.429.\nResult: 0.5257 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Using δ = PL/AE, find elongation for P=0.9853 N, L=98.0872 mm, A=100.7541 mm2, E=0.4409 N/mm2.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 0.9853, L = 98.09, A = 100.8, E = 0.4409.\nResult: 2.176 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Using δ = PL/AE, find elongation for P=4891.0077 N, L=2598.757 mm, A=5.9807 mm2, E=209.0016 N/mm2.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 4891.01, L = 2598.76, A = 5.981, E = 209.\nResult: 10168.6 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A rod L = 749.3206 mm, A = 1.1578 mm2, E = 671.412 N/mm2 carries P = 447.5491 N. Find elongation.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 447.5, L = 749.3, A = 1.158, E = 671.4.\nResult: 431.4 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Using δ = PL/AE, find elongation for P=1913.7383 N, L=4.4461 mm, A=0.8013 mm2, E=6264.0798 N/mm2.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 1913.74, L = 4.446, A = 0.8013, E = 6264.08.\nResult: 1.695 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A rod L = 6224.2897 mm, A = 236.2912 mm2, E = 14.7382 N/mm2 carries P = 67.1816 N. Find elongation.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 67.18, L = 6224.29, A = 236.3, E = 14.74.\nResult: 120.1 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A rod L = 1812.325 mm, A = 1621.4655 mm2, E = 37.2034 N/mm2 carries P = 0.5211 N. Find elongation.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 0.5211, L = 1812.33, A = 1621.47, E = 37.2.\nResult: 0.01566 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Using δ = PL/AE, find elongation for P=4.0501 N, L=7.2281 mm, A=4.305 mm2, E=1.8863 N/mm2.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 4.05, L = 7.228, A = 4.305, E = 1.886.\nResult: 3.605 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Using δ = PL/AE, find elongation for P=2.7992 N, L=214.5143 mm, A=0.7032 mm2, E=11.3224 N/mm2.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 2.799, L = 214.5, A = 0.7032, E = 11.32.\nResult: 75.42 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Using δ = PL/AE, find elongation for P=11.9462 N, L=143.4403 mm, A=1631.8463 mm2, E=1655.6118 N/mm2.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 11.95, L = 143.4, A = 1631.85, E = 1655.61.\nResult: 0.000634254 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A rod L = 4975.0023 mm, A = 14.0274 mm2, E = 1.3492 N/mm2 carries P = 10.0084 N. Find elongation.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 10.01, L = 4975, A = 14.03, E = 1.349.\nResult: 2630.9 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A rod L = 9.7695 mm, A = 10.571 mm2, E = 20.4086 N/mm2 carries P = 250.6974 N. Find elongation.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 250.7, L = 9.77, A = 10.57, E = 20.41.\nResult: 11.35 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "A rod L = 1536.9931 mm, A = 164.5976 mm2, E = 2769.915 N/mm2 carries P = 4863.226 N. Find elongation.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 4863.23, L = 1536.99, A = 164.6, E = 2769.91.\nResult: 16.39 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Using δ = PL/AE, find elongation for P=67.7771 N, L=2611.4266 mm, A=0.4141 mm2, E=608.7942 N/mm2.",
+      "output": "Formula: δL = P L / (A E) (`som.hooke_elongation`).\nSubstitution: P = 67.78, L = 2611.43, A = 0.4141, E = 608.8.\nResult: 702.1 mm.",
+      "source": "nl_registry:som.hooke_elongation",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 1.389 N·mm, y = 258.8861 mm, I = 0.7375 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 1.389, y = 258.9, I = 0.7375.\nResult: 487.6 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 674.97 N·mm, y = 64.7144 mm, I = 612.0204 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 675, y = 64.71, I = 612.\nResult: 71.37 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 1.6701 N·mm, y = 178.9203 mm, I = 207.1712 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 1.67, y = 178.9, I = 207.2.\nResult: 1.442 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 5347.3098 N·mm, y = 0.7018 mm, I = 6119.4267 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 5347.31, y = 0.7018, I = 6119.43.\nResult: 0.6133 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 676.8795 N·mm, y = 6.2723 mm, I = 2726.244 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 676.9, y = 6.272, I = 2726.24.\nResult: 1.557 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 5387.2896 N·mm, y = 1.9227 mm, I = 10.0707 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 5387.29, y = 1.923, I = 10.07.\nResult: 1028.54 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 2.6974 N·mm, y = 69.6404 mm, I = 1300.1161 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 2.697, y = 69.64, I = 1300.12.\nResult: 0.1445 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 0.3942 N·mm, y = 5.3031 mm, I = 0.7169 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 0.3942, y = 5.303, I = 0.7169.\nResult: 2.916 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 238.5282 N·mm, y = 454.9134 mm, I = 57.2075 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 238.5, y = 454.9, I = 57.21.\nResult: 1896.77 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 5.0585 N·mm, y = 1.4966 mm, I = 17.0501 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 5.059, y = 1.497, I = 17.05.\nResult: 0.444 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 1817.9109 N·mm, y = 7.377 mm, I = 4456.6225 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 1817.91, y = 7.377, I = 4456.62.\nResult: 3.009 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 1.2177 N·mm, y = 3.8445 mm, I = 9.684 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 1.218, y = 3.845, I = 9.684.\nResult: 0.4834 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 74.6405 N·mm, y = 73.5257 mm, I = 0.7084 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 74.64, y = 73.53, I = 0.7084.\nResult: 7747.03 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Find bending stress for M = 2409.5735 N·mm, y = 2.4985 mm, I = 0.3593 mm4.",
+      "output": "Formula: σ = M y / I (`som.bending_stress`).\nSubstitution: M = 2409.57, y = 2.498, I = 0.3593.\nResult: 16755.7 N/mm².",
+      "source": "nl_registry:som.bending_stress",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 6119.894 mm, d = 11.3224 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 6119.89, d = 11.32.\nResult: 740250 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 40.8422 mm, d = 141.4633 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 40.84, d = 141.5.\nResult: 9.63517e+06 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 5.0641 mm, d = 14.4839 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 5.064, d = 14.48.\nResult: 1282.26 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 24.5026 mm, d = 2619.2625 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 24.5, d = 2619.26.\nResult: 3.66917e+10 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 692.9297 mm, d = 0.645 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 692.9, d = 0.645.\nResult: 15.49 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 0.3982 mm, d = 0.7448 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 0.3982, d = 0.7448.\nResult: 0.01371 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 44.4752 mm, d = 552.0022 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 44.48, d = 552.\nResult: 6.23389e+08 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 1.5701 mm, d = 1628.4456 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 1.57, d = 1628.45.\nResult: 5.65023e+08 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 6.4624 mm, d = 2184.3749 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 6.462, d = 2184.37.\nResult: 5.61299e+09 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 2.3059 mm, d = 6.0928 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 2.306, d = 6.093.\nResult: 43.46 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 0.5282 mm, d = 1010.7954 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 0.5282, d = 1010.8.\nResult: 4.54576e+07 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 0.4114 mm, d = 12.3394 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 0.4114, d = 12.34.\nResult: 64.41 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Rectangular section b = 877.354 mm, d = 238.1 mm. Find I about the centroidal axis parallel to b.",
+      "output": "Formula: I = b d³ / 12 (`som.rect_moment_inertia`).\nSubstitution: b = 877.4, d = 238.1.\nResult: 9.86897e+08 mm⁴.",
+      "source": "nl_registry:som.rect_moment_inertia",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam span L = 206.6225 mm with UDL w = 0.8726 N/mm. Find max bending moment.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 0.8726, L = 206.6.\nResult: 4656.72 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam span L = 246.844 mm with UDL w = 0.6685 N/mm. Find max bending moment.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 0.6685, L = 246.8.\nResult: 5091.63 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam span L = 0.439 mm with UDL w = 1.7411 N/mm. Find max bending moment.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 1.741, L = 0.439.\nResult: 0.04194 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam span L = 2384.3069 mm with UDL w = 25.2047 N/mm. Find max bending moment.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 25.2, L = 2384.31.\nResult: 1.79108e+07 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "For SS beam + full UDL, L=107.6397 mm, w=2190.041 N/mm, compute M_max.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 2190.04, L = 107.6.\nResult: 3.17181e+06 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "For SS beam + full UDL, L=69.9967 mm, w=169.3585 N/mm, compute M_max.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 169.4, L = 70.\nResult: 103722 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "For SS beam + full UDL, L=0.7347 mm, w=545.1758 N/mm, compute M_max.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 545.2, L = 0.7347.\nResult: 36.78 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam span L = 39.4108 mm with UDL w = 646.8003 N/mm. Find max bending moment.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 646.8, L = 39.41.\nResult: 125577 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam span L = 11.2564 mm with UDL w = 730.9803 N/mm. Find max bending moment.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 731, L = 11.26.\nResult: 11577.5 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "For SS beam + full UDL, L=180.9999 mm, w=839.6918 N/mm, compute M_max.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 839.7, L = 181.\nResult: 3.43864e+06 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam span L = 9.1188 mm with UDL w = 381.1905 N/mm. Find max bending moment.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 381.2, L = 9.119.\nResult: 3962.12 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam span L = 1.5995 mm with UDL w = 5.0046 N/mm. Find max bending moment.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 5.005, L = 1.599.\nResult: 1.6 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "For SS beam + full UDL, L=230.1858 mm, w=20.644 N/mm, compute M_max.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 20.64, L = 230.2.\nResult: 136729 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "For SS beam + full UDL, L=0.424 mm, w=189.0897 N/mm, compute M_max.",
+      "output": "Formula: M_max = w L² / 8 (`som.ss_beam_max_moment`).\nSubstitution: w = 189.1, L = 0.424.\nResult: 4.249 N·mm.",
+      "source": "nl_registry:som.ss_beam_max_moment",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 1218.0964 mm carries UDL w = 3658.0597 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 3658.06, L = 1218.1.\nResult: 2.22793e+06 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 126.4999 mm carries UDL w = 1025.4178 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 1025.42, L = 126.5.\nResult: 64857.6 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 0.928 mm carries UDL w = 1581.6765 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 1581.68, L = 0.928.\nResult: 733.9 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 60.7533 mm carries UDL w = 152.4382 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 152.4, L = 60.75.\nResult: 4630.56 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 12.9181 mm carries UDL w = 25.7165 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 25.72, L = 12.92.\nResult: 166.1 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 16.7185 mm carries UDL w = 15.205 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 15.21, L = 16.72.\nResult: 127.1 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 2107.5603 mm carries UDL w = 0.537 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 0.537, L = 2107.56.\nResult: 565.9 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 23.8729 mm carries UDL w = 234.5644 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 234.6, L = 23.87.\nResult: 2799.87 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 900.5993 mm carries UDL w = 1.3911 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 1.391, L = 900.6.\nResult: 626.4 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 13.8512 mm carries UDL w = 10.3317 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 10.33, L = 13.85.\nResult: 71.55 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 277.6963 mm carries UDL w = 3.6431 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 3.643, L = 277.7.\nResult: 505.8 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 1.8372 mm carries UDL w = 12.9674 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 12.97, L = 1.837.\nResult: 11.91 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 0.5428 mm carries UDL w = 457.6017 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 457.6, L = 0.5428.\nResult: 124.2 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    },
+    {
+      "instruction": "Solve this B.Tech Civil Engineering problem with correct formulas.",
+      "input": "Simply supported beam L = 2484.5588 mm carries UDL w = 0.6506 N/mm. Find max shear force.",
+      "output": "Formula: V_max = w L / 2 (`som.ss_beam_max_shear`).\nSubstitution: w = 0.6506, L = 2484.56.\nResult: 808.2 N.",
+      "source": "nl_registry:som.ss_beam_max_shear",
+      "quality": "gold"
+    }
+  ]
+}

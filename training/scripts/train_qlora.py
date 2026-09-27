@@ -28,9 +28,9 @@ def main() -> None:
         default=Path("training/datasets/civilmaster_sft.jsonl"),
     )
     parser.add_argument("--out", type=Path, default=Path("training/adapters/civilmaster-lora"))
-    parser.add_argument("--epochs", type=int, default=2)
-    parser.add_argument("--batch-size", type=int, default=1)
-    parser.add_argument("--lr", type=float, default=2e-4)
+    parser.add_argument("--epochs", type=int, default=3)
+    parser.add_argument("--batch-size", type=int, default=2)
+    parser.add_argument("--lr", type=float, default=1.5e-4)
     parser.add_argument("--max-seq-len", type=int, default=2048)
     args = parser.parse_args()
 
@@ -76,8 +76,8 @@ def main() -> None:
     )
     model = prepare_model_for_kbit_training(model)
     lora = LoraConfig(
-        r=16,
-        lora_alpha=32,
+        r=32,
+        lora_alpha=64,
         lora_dropout=0.05,
         bias="none",
         task_type="CAUSAL_LM",

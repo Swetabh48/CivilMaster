@@ -74,6 +74,13 @@ select {
   gap: 0.7rem;
 }
 
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
 .brand-mark {
   width: 28px;
   height: 28px;
@@ -461,4 +468,111 @@ textarea {
   color: var(--muted);
   font-size: 0.8rem;
   font-weight: 500;
+}
+
+.solution-body .sol-h {
+  font-size: 1.05rem;
+  margin: 1rem 0 0.4rem;
+  color: var(--ink);
+}
+
+.solution-body .sol-p,
+.solution-body .sol-li,
+.solution-body .sol-strong {
+  margin: 0.35rem 0;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.solution-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: var(--canvas);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.chat-fab {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 40;
+  border: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.2rem;
+  background: #0b6bcb;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
+  cursor: pointer;
+}
+
+.chat-dock {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  width: min(380px, calc(100vw - 2rem));
+  height: min(520px, calc(100vh - 5rem));
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.18);
+  overflow: hidden;
+}
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--canvas);
+}
+
+.chat-body {
+  flex: 1;
+  overflow: auto;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.chat-bubble {
+  max-width: 92%;
+  padding: 0.65rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background: #0b6bcb;
+  color: #fff;
+}
+
+.chat-bubble.assistant {
+  align-self: flex-start;
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.chat-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+
+.chat-form input {
+  flex: 1;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
 }

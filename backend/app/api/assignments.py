@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import re
 import uuid
 from pathlib import Path
 
 import aiofiles
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
+from fastapi.responses import Response
+from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
@@ -13,10 +16,36 @@ from app.database import get_db
 from app.models.assignment import Assignment
 from app.models.user import User
 from app.schemas.assignment import AssignmentOut, TextSolveRequest
+from app.services.export_docs import build_solution_docx, build_solution_dxf, build_solution_pdf
+from app.services.llm import answer_solution_question
 from app.services.ocr import extract_text, is_allowed_file
 from app.services.solver import solve_problem
 
 router = APIRouter(prefix="/assignments", tags=["assignments"])
+
+
+class ChatRequest(BaseModel):
+    message: str = Field(min_length=2, max_length=2000)
+
+
+class ChatResponse(BaseModel):
+    reply: str
+
+
+def _owned_assignment(db: Session, assignment_id: str, user_id: str) -> Assignment:
+    item = (
+        db.query(Assignment)
+        .filter(Assignment.id == assignment_id, Assignment.user_id == user_id)
+        .first()
+    )
+    if not item:
+        raise HTTPException(status_code=404, detail="Assignment not found")
+    return item
+
+
+def _safe_filename(title: str, ext: str) -> str:
+    base = re.sub(r"[^A-Za-z0-9._-]+", "_", (title or "solution").strip())[:60] or "solution"
+    return f"{base}.{ext}"
 
 
 @router.get("", response_model=list[AssignmentOut])
@@ -143,3 +172,89 @@ async def upload_assignment(
     db.commit()
     db.refresh(assignment)
     return assignment
+
+
+@router.get("/{assignment_id}/export.pdf")
+def export_pdf(
+    assignment_id: str,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> Response:
+    item = _owned_assignment(db, assignment_id, user.id)
+    sol = item.solution or {}
+    pdf = build_solution_pdf(
+        title=item.title or "Assignment",
+        question=item.raw_text or "",
+        explanation=sol.get("explanation") or "",
+        answers=sol.get("final_answers") or [],
+        diagram_svg=sol.get("diagram_svg"),
+        subject=item.subject,
+    )
+    name = _safe_filename(item.title or "solution", "pdf")
+    return Response(
+        content=pdf,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{name}"'},
+    )
+
+
+@router.get("/{assignment_id}/export.docx")
+def export_docx(
+    assignment_id: str,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> Response:
+    item = _owned_assignment(db, assignment_id, user.id)
+    sol = item.solution or {}
+    docx = build_solution_docx(
+        title=item.title or "Assignment",
+        question=item.raw_text or "",
+        explanation=sol.get("explanation") or "",
+        answers=sol.get("final_answers") or [],
+        subject=item.subject,
+        diagram_svg=sol.get("diagram_svg"),
+    )
+    name = _safe_filename(item.title or "solution", "docx")
+    return Response(
+        content=docx,
+        media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers={"Content-Disposition": f'attachment; filename="{name}"'},
+    )
+
+
+@router.get("/{assignment_id}/export.dxf")
+def export_dxf(
+    assignment_id: str,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> Response:
+    item = _owned_assignment(db, assignment_id, user.id)
+    sol = item.solution or {}
+    dxf = build_solution_dxf(
+        diagram_type=sol.get("diagram_type"),
+        variables=sol.get("variables_extracted") or {},
+    )
+    name = _safe_filename(item.title or "drawing", "dxf")
+    return Response(
+        content=dxf,
+        media_type="application/dxf",
+        headers={"Content-Disposition": f'attachment; filename="{name}"'},
+    )
+
+
+@router.post("/{assignment_id}/chat", response_model=ChatResponse)
+async def chat_about_solution(
+    assignment_id: str,
+    payload: ChatRequest,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> ChatResponse:
+    item = _owned_assignment(db, assignment_id, user.id)
+    if item.status != "done" or not item.solution:
+        raise HTTPException(status_code=400, detail="Solution is not ready yet")
+    reply = await answer_solution_question(
+        payload.message,
+        problem_text=item.raw_text or "",
+        solution=item.solution,
+    )
+    return ChatResponse(reply=reply)

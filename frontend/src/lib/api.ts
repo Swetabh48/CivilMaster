@@ -159,6 +159,45 @@ export async function apiFeedback(
   if (!res.ok) throw new Error(await parseError(res));
 }
 
+export async function apiChatAboutSolution(
+  token: string,
+  assignmentId: string,
+  message: string
+): Promise<{ reply: string }> {
+  const res = await fetch(`${API_URL}/api/assignments/${assignmentId}/chat`, {
+    method: "POST",
+    headers: { ...authHeaders(token), "Content-Type": "application/json" },
+    body: JSON.stringify({ message }),
+  });
+  if (!res.ok) throw new Error(await parseError(res));
+  return res.json();
+}
+
+export function assignmentExportUrl(assignmentId: string, kind: "pdf" | "docx" | "dxf"): string {
+  return `${API_URL}/api/assignments/${assignmentId}/export.${kind}`;
+}
+
+export async function downloadAssignmentExport(
+  token: string,
+  assignmentId: string,
+  kind: "pdf" | "docx" | "dxf"
+): Promise<void> {
+  const res = await fetch(assignmentExportUrl(assignmentId, kind), {
+    headers: authHeaders(token),
+  });
+  if (!res.ok) throw new Error(await parseError(res));
+  const blob = await res.blob();
+  const cd = res.headers.get("Content-Disposition") || "";
+  const match = /filename=\"?([^\";]+)\"?/i.exec(cd);
+  const filename = match?.[1] || `solution.${kind}`;
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 export async function apiIngestCorpus(
   token: string,
   opts?: { force?: boolean; limit_files?: number; use_ocr?: boolean; only_unindexed?: boolean }
