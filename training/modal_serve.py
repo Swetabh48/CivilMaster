@@ -2,6 +2,9 @@
 
 Run:
   modal deploy training/modal_serve.py
+
+LoRA adapter lives on volume `civilmaster-lora-vol` at /lora/civilmaster-lora.
+Narration via CUDA needs Modal GPU billing; until then formula engine + exports work.
 """
 
 from __future__ import annotations
@@ -59,7 +62,6 @@ def fastapi_app():
         "CORS_ORIGINS",
         "https://civilmaster-five.vercel.app,https://civilmaster.vercel.app,http://localhost:3000",
     )
-    # Prefer adapter trained into the shared LoRA volume
     adapter = P("/lora/civilmaster-lora")
     if adapter.is_dir() and any(adapter.iterdir()):
         os.environ["LORA_ADAPTER_PATH"] = str(adapter)
