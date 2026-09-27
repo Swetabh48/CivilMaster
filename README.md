@@ -4,7 +4,12 @@ B.Tech Civil assignment helper that actually checks the formulas instead of gues
 
 Most chatbots freely invent stress/strain numbers. This one runs a formula registry first, pulls relevant notes from your own PDFs, then (optionally) writes the steps in plain language. If the LLM is offline, you still get the numerical solution.
 
-## What it does
+## Live demo
+
+- App: https://civilmaster-five.vercel.app
+- API: https://swetabh48--civilmaster-api-fastapi-app.modal.run/health
+
+Register with `admin@example.com` (see `.env.example`) to get admin on a fresh DB.
 
 - Solve typed or uploaded problems (SoM, RCC, steel, geotech basics)
 - Show step-by-step work with the formula used and units
