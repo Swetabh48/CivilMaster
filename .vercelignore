@@ -1,0 +1,12 @@
+# Never upload local data / training weights to Vercel
+data/
+training/adapters/
+training/datasets/
+training/cloud_pack/
+backend/.venv/
+.venv/
+*.zip
+*.safetensors
+*.pt
+*.bin
+*.db
