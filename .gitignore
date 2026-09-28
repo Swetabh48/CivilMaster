@@ -9,7 +9,6 @@ __pycache__/
 .venv/
 venv/
 .env
-.cursor/
 data/uploads/*
 !data/uploads/.gitkeep
 data/corpus/*
@@ -30,5 +29,3 @@ training/adapters/
 *.bin
 *.safetensors
 *.zip
-catbox_*.txt
-litter_*.txt
