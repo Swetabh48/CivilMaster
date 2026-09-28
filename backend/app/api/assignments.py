@@ -182,9 +182,13 @@ def export_pdf(
 ) -> Response:
     item = _owned_assignment(db, assignment_id, user.id)
     sol = item.solution or {}
+    question = (
+        sol.get("export_question")
+        or (item.raw_text or "")[:2000]
+    )
     pdf = build_solution_pdf(
         title=item.title or "Assignment",
-        question=item.raw_text or "",
+        question=question,
         explanation=sol.get("explanation") or "",
         answers=sol.get("final_answers") or [],
         diagram_svg=sol.get("diagram_svg"),
@@ -192,6 +196,7 @@ def export_pdf(
         steps=sol.get("steps") or [],
         diagram_type=sol.get("diagram_type"),
         variables=sol.get("variables_extracted") or {},
+        pack_problems=sol.get("problems") if sol.get("pack") else None,
     )
     name = _safe_filename(item.title or "solution", "pdf")
     return Response(
@@ -209,9 +214,10 @@ def export_docx(
 ) -> Response:
     item = _owned_assignment(db, assignment_id, user.id)
     sol = item.solution or {}
+    question = sol.get("export_question") or (item.raw_text or "")[:2000]
     docx = build_solution_docx(
         title=item.title or "Assignment",
-        question=item.raw_text or "",
+        question=question,
         explanation=sol.get("explanation") or "",
         answers=sol.get("final_answers") or [],
         subject=item.subject or sol.get("subject"),

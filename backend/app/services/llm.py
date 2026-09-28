@@ -276,6 +276,9 @@ def narrative_from_registry(problem_text: str, solution: dict) -> str:
             "Could not match a stored formula with the values found in the question. "
             "Try pasting clearer numbers (for example `P = 50 kN`, `A = 500 mm2`)."
         )
-        lines.append("")
-        lines.append(f"Question excerpt: {problem_text[:500]}")
+        # Do not dump the whole upload back into the write-up
+        excerpt = (problem_text or "").strip().replace("\n", " ")
+        if excerpt:
+            lines.append("")
+            lines.append(f"Question focus: {excerpt[:280]}")
     return "\n".join(lines)

@@ -29,3 +29,4 @@ training/adapters/
 *.bin
 *.safetensors
 *.zip
+.vercel

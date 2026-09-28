@@ -20,6 +20,7 @@ from reportlab.platypus import (
     KeepTogether,
     ListFlowable,
     ListItem,
+    PageBreak,
     Paragraph,
     SimpleDocTemplate,
     Spacer,
@@ -409,6 +410,7 @@ def build_solution_pdf(
     steps: list[dict[str, Any]] | None = None,
     diagram_type: str | None = None,
     variables: dict[str, Any] | None = None,
+    pack_problems: list[dict[str, Any]] | None = None,
 ) -> bytes:
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(
@@ -435,29 +437,124 @@ def build_solution_pdf(
     if title:
         story.append(Paragraph(_clean(title), styles["section"]))
     if subject:
-        story.append(Paragraph(_clean(f"Subject: {subject.replace('_', ' ').title()}"), styles["muted"]))
+        story.append(
+            Paragraph(
+                _clean(f"Subject: {str(subject).replace('_', ' ').title()}"),
+                styles["muted"],
+            )
+        )
         story.append(Spacer(1, 6))
 
-    # 1) Question
-    story.extend(_question_block(question, styles))
+    # Multi-question pack: one clear block per question (new page each)
+    if pack_problems:
+        for idx, prob in enumerate(pack_problems, start=1):
+            if idx > 1:
+                story.append(PageBreak())
+                story.append(Paragraph("CivilMaster", styles["brand"]))
+                story.append(
+                    Paragraph(
+                        "B.Tech Civil | formula-verified worked solution",
+                        styles["sub"],
+                    )
+                )
+                story.append(HRFlowable(width="100%", thickness=1.5, color=ACCENT, spaceAfter=8))
 
-    # 2) Diagram immediately under the question
-    story.append(_Banner("DIAGRAM", colors.HexColor("#334155")))
-    story.append(Spacer(1, 6))
-    png = diagram_png_for_solution(
-        diagram_svg=diagram_svg,
-        diagram_type=diagram_type,
-        variables=variables,
-        answers=answers,
-        subject=subject,
-    )
-    story.append(_png_flowable(png))
-    story.append(Spacer(1, 10))
+            story.append(
+                Paragraph(
+                    _clean(prob.get("title") or f"Question {idx}"),
+                    styles["section"],
+                )
+            )
+            qtext = (prob.get("question") or "")[:1200]
+            story.extend(_question_block(qtext, styles))
 
-    # 3) Solution steps
+            kind = (prob.get("kind") or "").lower()
+            has_steps = bool(prob.get("steps"))
+            has_answers = bool(prob.get("final_answers"))
+
+            if has_steps and has_answers and (
+                prob.get("diagram_svg") or prob.get("diagram_type") not in (None, "", "none")
+            ):
+                story.append(_Banner("DIAGRAM", colors.HexColor("#334155")))
+                story.append(Spacer(1, 6))
+                png = diagram_png_for_solution(
+                    diagram_svg=prob.get("diagram_svg"),
+                    diagram_type=prob.get("diagram_type"),
+                    variables=prob.get("variables_extracted") or {},
+                    answers=prob.get("final_answers") or [],
+                    subject=subject,
+                )
+                story.append(_png_flowable(png))
+                story.append(Spacer(1, 8))
+
+            if kind == "detailing":
+                story.append(_Banner("GUIDANCE (CAD / detailing)", ACCENT))
+                story.append(Spacer(1, 6))
+                for line in (prob.get("explanation") or "").split("\n"):
+                    line = _strip_md(line)
+                    if line:
+                        story.append(Paragraph(_clean(line), styles["body"]))
+                story.append(Spacer(1, 8))
+                story.append(
+                    Paragraph(
+                        "<i>No fake numerical diagram — draw this in AutoCAD from the guidance above.</i>",
+                        styles["muted"],
+                    )
+                )
+            elif has_steps or has_answers:
+                story.extend(
+                    _solution_steps(
+                        prob.get("explanation") or "",
+                        prob.get("steps") or [],
+                        styles,
+                    )
+                )
+                ans_flow = _answer_block(prob.get("final_answers") or [], styles)
+                if ans_flow:
+                    story.append(KeepTogether(ans_flow))
+            else:
+                story.append(_Banner("PARTIAL / NEEDS MANUAL CHECK", colors.HexColor("#9a3412")))
+                story.append(Spacer(1, 6))
+                for line in (prob.get("explanation") or "").split("\n"):
+                    line = _strip_md(line)
+                    if line:
+                        story.append(Paragraph(_clean(line), styles["body"]))
+                story.append(Spacer(1, 6))
+                story.append(
+                    Paragraph(
+                        "Paste this one question alone if you need a single formula-engine check.",
+                        styles["muted"],
+                    )
+                )
+        story.append(Spacer(1, 10))
+        story.append(
+            Paragraph(
+                "CivilMaster | Detailing → AutoCAD drawings. Numerical checks → formula engine + IS codes.",
+                styles["muted"],
+            )
+        )
+        doc.build(story)
+        return buffer.getvalue()
+
+    # Single-problem layout
+    q_show = (question or "")[:2000]
+    story.extend(_question_block(q_show, styles))
+
+    if steps and (diagram_svg or (diagram_type and diagram_type != "none")):
+        story.append(_Banner("DIAGRAM", colors.HexColor("#334155")))
+        story.append(Spacer(1, 6))
+        png = diagram_png_for_solution(
+            diagram_svg=diagram_svg,
+            diagram_type=diagram_type,
+            variables=variables,
+            answers=answers,
+            subject=subject,
+        )
+        story.append(_png_flowable(png))
+        story.append(Spacer(1, 10))
+
     story.extend(_solution_steps(explanation, steps or [], styles))
 
-    # 4) Final answers boxed — keep with preceding content when possible
     answers_flow = _answer_block(answers, styles)
     if answers_flow:
         story.append(KeepTogether(answers_flow))
