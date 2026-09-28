@@ -113,4 +113,28 @@ def render_diagram(diagram_type: str, params: dict[str, Any] | None = None) -> s
         return section_rect(params)
     if diagram_type == "rcc_section":
         return rcc_section(params)
+    if diagram_type == "axial":
+        return axial_member(params)
     return None
+
+
+def axial_member(params: dict[str, Any] | None = None) -> str:
+    p = params or {}
+    P = float(p.get("P", 100000))
+    A = float(p.get("A", 500))
+    body = f"""
+    <text x="24" y="28" font-family="IBM Plex Sans, sans-serif" font-size="16" fill="#1c2430">Axial loaded member</text>
+    <text x="24" y="50" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="#5a6573">P={P:g} | A={A:g}</text>
+    <rect x="180" y="140" width="280" height="70" fill="#e8edf2" stroke="#1c2430" stroke-width="3"/>
+    <line x1="80" y1="175" x2="180" y2="175" stroke="#8a4b2f" stroke-width="3" marker-end="url(#arrowP)"/>
+    <line x1="460" y1="175" x2="560" y2="175" stroke="#8a4b2f" stroke-width="3" marker-end="url(#arrowP)"/>
+    <text x="100" y="160" font-size="14" fill="#8a4b2f" font-family="IBM Plex Sans, sans-serif">P</text>
+    <text x="520" y="160" font-size="14" fill="#8a4b2f" font-family="IBM Plex Sans, sans-serif">P</text>
+    <text x="320" y="250" text-anchor="middle" font-size="13" fill="#2f5d8a" font-family="IBM Plex Sans, sans-serif">σ = P / A</text>
+    <defs>
+      <marker id="arrowP" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" fill="#8a4b2f"/>
+      </marker>
+    </defs>
+    """
+    return _svg(body, title="Axial member")

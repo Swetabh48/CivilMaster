@@ -28,6 +28,23 @@ async def solve_problem(db: Session, problem_text: str, subject_hint: str | None
             params["Ast"] = ans["value"]
 
     svg = render_diagram(registry.get("diagram_type") or "none", params)
+    if not svg:
+        # Always attach a usable sketch when we have any computed answer
+        dtype = "none"
+        fids = " ".join(a.get("formula_id") or "" for a in (registry.get("final_answers") or []))
+        if any(k in fids for k in ("beam", "moment", "shear")):
+            dtype = "beam_sfd_bmd"
+        elif "rcc" in fids:
+            dtype = "rcc_section"
+        elif "inertia" in fids or "section" in fids:
+            dtype = "section"
+        elif "P" in params and "A" in params:
+            dtype = "axial"
+        elif registry.get("final_answers"):
+            dtype = "beam_sfd_bmd"
+        if dtype != "none":
+            registry["diagram_type"] = dtype
+            svg = render_diagram(dtype, params)
     registry["diagram_svg"] = svg
 
     explanation = await generate_explanation(problem_text, registry, rag_hits)

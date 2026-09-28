@@ -549,12 +549,16 @@ def solve_with_registry(text: str) -> dict[str, Any]:
     diagram_type = "none"
 
     lower = text.lower()
-    if "beam" in lower or "bending" in lower or "udl" in lower or "shear force" in lower:
+    if "beam" in lower or "bending" in lower or "udl" in lower or "shear force" in lower or "bmd" in lower or "sfd" in lower:
         diagram_type = "beam_sfd_bmd"
-    elif "section" in lower or "rectangle" in lower or "circular" in lower:
+    elif "section" in lower or "rectangle" in lower or "circular" in lower or "moment of inertia" in lower:
         diagram_type = "section"
-    elif any(w in lower for w in ("rcc", "concrete", "reinforcement", "ast")):
+    elif any(w in lower for w in ("rcc", "concrete", "reinforcement", "ast", "fe415", "fck")):
         diagram_type = "rcc_section"
+    elif "axial" in lower or ("stress" in lower and "area" in lower) or (
+        "load" in lower and "area" in lower
+    ):
+        diagram_type = "axial"
 
     # Prefer formulas we can fully evaluate; skip bare constants unless nothing else works
     evaluated = 0

@@ -188,7 +188,10 @@ def export_pdf(
         explanation=sol.get("explanation") or "",
         answers=sol.get("final_answers") or [],
         diagram_svg=sol.get("diagram_svg"),
-        subject=item.subject,
+        subject=item.subject or sol.get("subject"),
+        steps=sol.get("steps") or [],
+        diagram_type=sol.get("diagram_type"),
+        variables=sol.get("variables_extracted") or {},
     )
     name = _safe_filename(item.title or "solution", "pdf")
     return Response(
@@ -211,8 +214,11 @@ def export_docx(
         question=item.raw_text or "",
         explanation=sol.get("explanation") or "",
         answers=sol.get("final_answers") or [],
-        subject=item.subject,
+        subject=item.subject or sol.get("subject"),
         diagram_svg=sol.get("diagram_svg"),
+        steps=sol.get("steps") or [],
+        diagram_type=sol.get("diagram_type"),
+        variables=sol.get("variables_extracted") or {},
     )
     name = _safe_filename(item.title or "solution", "docx")
     return Response(
