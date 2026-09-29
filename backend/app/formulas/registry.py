@@ -546,19 +546,10 @@ def solve_with_registry(text: str) -> dict[str, Any]:
     candidates = rank_formulas(text)
     steps: list[dict[str, Any]] = []
     results: list[dict[str, Any]] = []
+    # Diagram type is decided after evaluation from actual formula IDs + variables
+    # (see solver._attach_diagram). Do not set from keywords alone — that attaches
+    # unrelated SFD/BMD sketches to RCC / soil questions.
     diagram_type = "none"
-
-    lower = text.lower()
-    if "beam" in lower or "bending" in lower or "udl" in lower or "shear force" in lower or "bmd" in lower or "sfd" in lower:
-        diagram_type = "beam_sfd_bmd"
-    elif "section" in lower or "rectangle" in lower or "circular" in lower or "moment of inertia" in lower:
-        diagram_type = "section"
-    elif any(w in lower for w in ("rcc", "concrete", "reinforcement", "ast", "fe415", "fck")):
-        diagram_type = "rcc_section"
-    elif "axial" in lower or ("stress" in lower and "area" in lower) or (
-        "load" in lower and "area" in lower
-    ):
-        diagram_type = "axial"
 
     # Prefer formulas we can fully evaluate; skip bare constants unless nothing else works
     evaluated = 0
@@ -609,32 +600,24 @@ def solve_with_registry(text: str) -> dict[str, Any]:
             except (ValueError, ZeroDivisionError, KeyError):
                 continue
 
-    if evaluated == 0:
-        for f in deferred_constants:
+    # Never report bare code constants (e.g. xu,max/d = 0.48) as the "solution".
+    # They may appear as notes only when a real formula was evaluated.
+    if evaluated > 0 and deferred_constants:
+        for f in deferred_constants[:2]:
             try:
                 res = evaluate_formula(f.id, {})
-                ver = verify_result(res)
                 steps.append(
                     {
                         "formula_id": res.formula_id,
                         "name": res.name,
                         "expression": res.expression,
-                        "inputs": res.inputs,
+                        "inputs": {},
                         "value": round(res.value, 6),
                         "unit": res.unit,
-                        "notes": res.notes,
-                        "verification": ver,
+                        "notes": (res.notes or "") + " (code constant — not a computed answer)",
+                        "verification": {"ok": True, "checks": []},
                     }
                 )
-                results.append(
-                    {
-                        "label": res.name,
-                        "value": round(res.value, 6),
-                        "unit": res.unit,
-                        "formula_id": res.formula_id,
-                    }
-                )
-                evaluated += 1
             except (ValueError, ZeroDivisionError, KeyError):
                 continue
 

@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "qwen2.5:7b"
     lora_adapter_path: str = str(ROOT_DIR / "training" / "adapters" / "civilmaster-lora")
+    # Optional hosted OpenAI-compatible LLM for parse/narrate (Phases 1+)
+    llm_api_key: str = ""
+    llm_base_url: str = ""  # e.g. https://api.openai.com/v1
+    llm_model: str = ""
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     max_upload_mb: int = 20
     admin_email: str = "admin@example.com"

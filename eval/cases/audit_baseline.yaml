@@ -1,0 +1,102 @@
+# Audit baseline — Appendix A of ARCHITECTURE_AND_PLAN.md
+id: audit_01_ss_udl
+topic: beam_analysis
+question: >
+  A simply supported beam of span 6 m carries a UDL of 20 kN/m over the entire span.
+  Draw the SFD and BMD and find the maximum bending moment.
+expect:
+  status: verified
+  answers:
+    - label_contains: M
+      value_kNm: 90.0
+      tol_pct: 2
+    - label_contains: V
+      value_kN: 60.0
+      tol_pct: 2
+  require_diagram: true
+---
+id: audit_02_ss_points
+topic: beam_analysis
+question: >
+  A simply supported beam AB of span 5 m carries point loads of 20 kN at 1 m and 30 kN at 3 m from A.
+  Draw SFD and BMD.
+expect:
+  status: verified
+  answers:
+    - label_contains: Ra
+      value_kN: 28.0
+      tol_pct: 2
+    - label_contains: Rb
+      value_kN: 22.0
+      tol_pct: 2
+  require_diagram: true
+---
+id: audit_03_cantilever_udl
+topic: beam_analysis
+question: >
+  A cantilever of length 3 m carries a UDL of 10 kN/m. Find the maximum shear force and bending moment.
+expect:
+  status: verified
+  answers:
+    - label_contains: V
+      value_kN: 30.0
+      tol_pct: 2
+    - label_contains: M
+      value_kNm: 45.0
+      tol_pct: 2
+  require_diagram: true
+---
+id: audit_04_lap_joint
+topic: is800_bolted_lap
+question: >
+  Design a lap joint for a tensile force of 145 kN using M16 bolts of grade 4.6.
+  Plates are 12 mm thick and 120 mm wide of E250 steel.
+expect:
+  status: verified
+  answers:
+    - label_contains: n
+      value_min: 4
+  require_diagram: false
+---
+id: audit_05_rcc_lsm
+topic: rcc_singly_lsm
+question: >
+  Design a singly reinforced rectangular beam 230 mm x 450 mm effective depth for a factored
+  moment of 120 kNm using M20 concrete and Fe415 steel.
+expect:
+  status: verified
+  answers:
+    - label_contains: Ast
+      value_mm2_min: 800
+      value_mm2_max: 2500
+  require_diagram: false
+---
+id: audit_06_bending_stress
+topic: bending_stress
+question: >
+  A rectangular beam 200 mm wide and 400 mm deep is subjected to a bending moment of 50 kNm.
+  Find the maximum bending stress.
+expect:
+  status: verified
+  answers:
+    - label_contains: sigma
+      # σ = M y / I = 50e6 * 200 / (200*400^3/12) = 9.375 N/mm²
+      value_N_per_mm2: 9.375
+      tol_pct: 2
+  require_diagram: false
+---
+id: audit_07_soil
+topic: phase_relations
+question: >
+  A soil sample has a bulk density of 1.9 g/cc and water content 12%. G = 2.7.
+  Find void ratio and degree of saturation.
+expect:
+  status: verified
+  answers:
+    - label_contains: e
+      value: 0.589
+      tol_pct: 5
+    - label_contains: S
+      value: 0.55
+      tol_pct: 10
+  require_diagram: false

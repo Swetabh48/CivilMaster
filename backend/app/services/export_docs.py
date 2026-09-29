@@ -153,15 +153,14 @@ def diagram_png_for_solution(
     variables: dict[str, Any] | None = None,
     answers: list[dict[str, Any]] | None = None,
     subject: str | None = None,
-) -> bytes:
-    """Return PNG bytes for the PDF/DOCX diagram — never empty if we can sketch."""
+) -> bytes | None:
+    """Return PNG bytes only when a real diagram exists — never invent one."""
     png = _svg_to_png_bytes(diagram_svg or "")
     if png:
         return png
 
-    # Try re-render SVG from type
     try:
-        from app.diagrams.svg_templates import render_diagram
+        from app.diagrams.svg_templates import can_draw, render_diagram
 
         params = dict(variables or {})
         for a in answers or []:
@@ -176,25 +175,12 @@ def diagram_png_for_solution(
         dtype = diagram_type or "none"
         if dtype in ("", "none"):
             dtype = _infer_diagram_type(subject, answers, variables)
+        if not can_draw(dtype, params):
+            return None
         svg = render_diagram(dtype, params)
-        png = _svg_to_png_bytes(svg or "")
-        if png:
-            return png
+        return _svg_to_png_bytes(svg or "")
     except Exception:
-        pass
-
-    vars_ = variables or {}
-    ans_lines = [
-        f"{a.get('label')}: {a.get('value')} {a.get('unit')}" for a in (answers or [])[:4]
-    ]
-    given = [f"{k} = {v}" for k, v in list(vars_.items())[:5]]
-    title = {
-        "beam_sfd_bmd": "Beam sketch (SFD / BMD)",
-        "section": "Cross-section sketch",
-        "rcc_section": "RCC section sketch",
-        "axial": "Axial member sketch",
-    }.get(diagram_type or "", "Problem sketch")
-    return _png_from_pillow_fallback(title=title, lines=given + ans_lines)
+        return None
 
 
 def _infer_diagram_type(
@@ -203,23 +189,34 @@ def _infer_diagram_type(
     variables: dict[str, Any] | None,
 ) -> str:
     ids = " ".join((a.get("formula_id") or "") for a in (answers or []))
-    keys = " ".join((variables or {}).keys()).lower()
-    if any(x in ids for x in ("beam", "moment", "shear", "udl")) or "w" in (variables or {}):
+    vars_ = variables or {}
+    if any(x in ids for x in ("beam.", "udl_max", "point_load")) and "L" in vars_ and (
+        "w" in vars_ or "W" in vars_
+    ):
         return "beam_sfd_bmd"
-    if "rcc" in ids or (subject or "") == "concrete":
+    if "rcc.ast" in ids or "rcc.mulim" in ids:
         return "rcc_section"
-    if "I" in (variables or {}) or "b" in keys:
+    if "I" in vars_ or ("b" in vars_ and "d" in vars_ and "section" in ids):
         return "section"
-    if "P" in (variables or {}) and "A" in (variables or {}):
+    if "P" in vars_ and "A" in vars_ and "axial" in ids:
         return "axial"
-    return "beam_sfd_bmd"
+    return "none"
 
 
 def _png_flowable(png: bytes, max_width: float = 150 * mm) -> RLImage:
     bio = io.BytesIO(png)
     img = RLImage(bio)
+    # Preserve native aspect ratio (SVGs are 640×360 ≈ 0.5625)
+    try:
+        from PIL import Image as PILImage
+
+        with PILImage.open(io.BytesIO(png)) as im:
+            w, h = im.size
+        ratio = (h / w) if w else 0.5625
+    except Exception:
+        ratio = 0.5625
     img.drawWidth = max_width
-    img.drawHeight = max_width * (0.48)  # keep diagram compact so answers fit on page 1
+    img.drawHeight = max_width * ratio
     return img
 
 
@@ -349,7 +346,24 @@ def _answer_block(answers: list[dict[str, Any]], styles: dict) -> list[Any]:
 def _solution_steps(explanation: str, steps: list[dict[str, Any]], styles: dict) -> list[Any]:
     out: list[Any] = [_Banner("SOLUTION — step by step", ACCENT), Spacer(1, 8)]
 
-    # Prefer structured registry steps when present
+    # Written explanation first (LoRA / Ollama / template narrative) when present
+    narr = (explanation or "").strip()
+    if narr and not narr.lower().startswith("could not match"):
+        for raw in narr.split("\n"):
+            line = _strip_md(raw)
+            if not line:
+                out.append(Spacer(1, 3))
+                continue
+            if line.lower().startswith("step") or raw.strip().startswith("##"):
+                out.append(Paragraph(f"<b>{_clean(line)}</b>", styles["step"]))
+            elif line.startswith("- ") or line.startswith("* "):
+                out.append(Paragraph("• " + _clean(line[2:]), styles["step"]))
+            else:
+                out.append(Paragraph(_clean(line), styles["body"]))
+        if steps:
+            out.append(Spacer(1, 8))
+            out.append(Paragraph("<b>Formula engine checks</b>", styles["section"]))
+
     if steps:
         for i, step in enumerate(steps, start=1):
             name = _clean(str(step.get("name") or f"Step {i}"))
@@ -384,18 +398,8 @@ def _solution_steps(explanation: str, steps: list[dict[str, Any]], styles: dict)
             out.append(KeepTogether([cell, Spacer(1, 6)]))
         return out
 
-    # Fallback: clean free-text explanation
-    for raw in (explanation or "No written steps available.").split("\n"):
-        line = _strip_md(raw)
-        if not line:
-            out.append(Spacer(1, 4))
-            continue
-        if line.lower().startswith("step") or raw.strip().startswith("##"):
-            out.append(Paragraph(f"<b>{_clean(line)}</b>", styles["step"]))
-        elif line.startswith("- ") or line.startswith("* "):
-            out.append(Paragraph("• " + _clean(line[2:]), styles["step"]))
-        else:
-            out.append(Paragraph(_clean(line), styles["body"]))
+    if not narr:
+        out.append(Paragraph("No written steps available.", styles["body"]))
     return out
 
 
@@ -475,8 +479,6 @@ def build_solution_pdf(
             if has_steps and has_answers and (
                 prob.get("diagram_svg") or prob.get("diagram_type") not in (None, "", "none")
             ):
-                story.append(_Banner("DIAGRAM", colors.HexColor("#334155")))
-                story.append(Spacer(1, 6))
                 png = diagram_png_for_solution(
                     diagram_svg=prob.get("diagram_svg"),
                     diagram_type=prob.get("diagram_type"),
@@ -484,8 +486,11 @@ def build_solution_pdf(
                     answers=prob.get("final_answers") or [],
                     subject=subject,
                 )
-                story.append(_png_flowable(png))
-                story.append(Spacer(1, 8))
+                if png:
+                    story.append(_Banner("DIAGRAM", colors.HexColor("#334155")))
+                    story.append(Spacer(1, 6))
+                    story.append(_png_flowable(png))
+                    story.append(Spacer(1, 8))
 
             if kind == "detailing":
                 story.append(_Banner("GUIDANCE (CAD / detailing)", ACCENT))
@@ -541,8 +546,6 @@ def build_solution_pdf(
     story.extend(_question_block(q_show, styles))
 
     if steps and (diagram_svg or (diagram_type and diagram_type != "none")):
-        story.append(_Banner("DIAGRAM", colors.HexColor("#334155")))
-        story.append(Spacer(1, 6))
         png = diagram_png_for_solution(
             diagram_svg=diagram_svg,
             diagram_type=diagram_type,
@@ -550,8 +553,11 @@ def build_solution_pdf(
             answers=answers,
             subject=subject,
         )
-        story.append(_png_flowable(png))
-        story.append(Spacer(1, 10))
+        if png:
+            story.append(_Banner("DIAGRAM", colors.HexColor("#334155")))
+            story.append(Spacer(1, 6))
+            story.append(_png_flowable(png))
+            story.append(Spacer(1, 10))
 
     story.extend(_solution_steps(explanation, steps or [], styles))
 
@@ -618,9 +624,6 @@ def build_solution_docx(
     qp = doc.add_paragraph(question or "")
     shade(qp, "EEF4FB")
 
-    dh = doc.add_paragraph()
-    run = dh.add_run("DIAGRAM")
-    run.bold = True
     png = diagram_png_for_solution(
         diagram_svg=diagram_svg,
         diagram_type=diagram_type,
@@ -628,7 +631,11 @@ def build_solution_docx(
         answers=answers,
         subject=subject,
     )
-    doc.add_picture(io.BytesIO(png), width=Inches(5.9))
+    if png:
+        dh = doc.add_paragraph()
+        run = dh.add_run("DIAGRAM")
+        run.bold = True
+        doc.add_picture(io.BytesIO(png), width=Inches(5.9))
 
     sh = doc.add_paragraph()
     run = sh.add_run("SOLUTION — step by step")

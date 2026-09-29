@@ -272,11 +272,13 @@ def narrative_from_registry(problem_text: str, solution: dict) -> str:
         for ans in solution["final_answers"]:
             lines.append(f"- {ans['label']}: {ans['value']} {ans['unit']}")
     if not solution.get("steps"):
+        lines.append("**Status: not solved**")
         lines.append(
-            "Could not match a stored formula with the values found in the question. "
-            "Try pasting clearer numbers (for example `P = 50 kN`, `A = 500 mm2`)."
+            "No formula matched with clear inputs from this wording. "
+            "CivilMaster will not invent an answer or diagram. "
+            "Paste values as `L = 6 m`, `w = 20 kN/m`, `P = 145 kN`, or wait for the "
+            "natural-language solvers (beams / IS 800 / IS 456) in the next pipeline phase."
         )
-        # Do not dump the whole upload back into the write-up
         excerpt = (problem_text or "").strip().replace("\n", " ")
         if excerpt:
             lines.append("")
